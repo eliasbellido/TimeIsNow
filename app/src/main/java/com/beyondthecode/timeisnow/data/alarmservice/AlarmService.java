@@ -10,10 +10,9 @@ import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.Vibrator;
 
-import com.beyondthecode.timeisnow.alarmreceiver.AlarmReceiverActivity;
+import com.beyondthecode.timeisnow.presentation.alarmreceiver.AlarmReceiverActivity;
 import com.beyondthecode.timeisnow.data.viewmodel.Alarm;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 import javax.inject.Inject;
@@ -46,7 +45,7 @@ public class AlarmService implements AlarmManager{
 
         Calendar alarm = Calendar.getInstance();
         alarm.setTimeInMillis(System.currentTimeMillis());
-        alarm.set(Calendar.HOUR_OF_DAY, reminder.getHouOfDay());
+        alarm.set(Calendar.HOUR_OF_DAY, reminder.getHourOfDay());
         alarm.set(Calendar.MINUTE, reminder.getMinute());
 
         //asegurse que se está seteando la alarma para más temprano hoy
