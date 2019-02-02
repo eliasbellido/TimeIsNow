@@ -81,10 +81,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="contact_title">Contact Information</string>
     <string name="contact_info">
-        Website: wiseassblog.com\n
-        Youtube: youtube.com/wiseass\n
-        Facebook: facebook.com/wiseassblog\n
-        G+: google.com/+wiseass
+        GitHub: github.com/eliasbellido\n
+        Youtube: youtube.com/channel/UC6WNhAnk6ZbEcbLZigcZh8w\n
+        Facebook: facebook.com/ebellido6
+
     </string>
     <string name="stop_alarm">Stop Alarm</string>
     <string name="menu_item_alarms">Alarms</string>

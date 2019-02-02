@@ -13,7 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/TimeIsNow">
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".presentation.alarmreceiver.AlarmReceiverActivity" />
         <activity
             android:name=".presentation.alarmlist.AlarmListActivity"
@@ -25,7 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.alarmdetail.AlarmDetailActivity"></activity>
+        <activity android:name=".presentation.alarmdetail.AlarmDetailActivity" />
+        <activity android:name=".presentation.settings.SettingsActivity"></activity>
     </application>
 
 </manifest>

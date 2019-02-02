@@ -2,7 +2,6 @@ package com.beyondthecode.timeisnow.presentation.alarmlist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +26,7 @@ import com.beyondthecode.timeisnow.R;
 import com.beyondthecode.timeisnow.TimeisnowApplication;
 import com.beyondthecode.timeisnow.data.viewmodel.Alarm;
 import com.beyondthecode.timeisnow.presentation.alarmdetail.AlarmDetailActivity;
+import com.beyondthecode.timeisnow.presentation.settings.SettingsActivity;
 import com.beyondthecode.timeisnow.util.TimeConverter;
 
 import java.text.ParseException;
@@ -117,6 +118,8 @@ public class AlarmListFragment extends Fragment implements AlarmListContract.Vie
     }
     @OnClick(R.id.btn_alarm_list_settings)
     public void onIconClick(){
+
+        Log.d("boton","se hizo click en settings");
         presenter.onSettingsIconClick();
     }
 
@@ -195,6 +198,8 @@ public class AlarmListFragment extends Fragment implements AlarmListContract.Vie
 
     @Override
     public void startSettingsActivity() {
+        Intent i = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(i);
 
     }
 
@@ -278,7 +283,7 @@ public class AlarmListFragment extends Fragment implements AlarmListContract.Vie
             holder.alarmTitle.setText(item.getAlarmTitle());
 
             try {
-                holder.alarmTitle.setText(
+                holder.alarmTime.setText(
                         TimeConverter.converTime(
                                 item.getHourOfDay(),
                                 item.getMinute())
@@ -301,7 +306,7 @@ public class AlarmListFragment extends Fragment implements AlarmListContract.Vie
             return alarms.size();
         }
 
-        class ALViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        class ALViewHolder extends RecyclerView.ViewHolder {
 
             @BindView(R.id.lbl_alarm_title)
             TextView alarmTitle;
@@ -322,34 +327,37 @@ public class AlarmListFragment extends Fragment implements AlarmListContract.Vie
                 super(itemView);
                 ButterKnife.bind(this, itemView);
 
-                alarmIcon.setOnClickListener(this);
-                alarmStateLabel.setOnClickListener(this);
+                //alarmIcon.setOnClickListener(this);
+                //alarmStateLabel.setOnClickListener(this);
             }
 
-            @Override
-            public void onClick(View v) {
-                int id = v.getId();
-
-                if(id == R.id.swi_alarm_activation){
-                    if(alarmStateSwitch.isChecked()){
-                        alarmStateLabel.setText(R.string.on);
-                        presenter.onAlarmToggled(
-                                true,
-                                alarms.get(this.getAdapterPosition())
-                        );
-                    }else{
-                        alarmStateLabel.setText(R.string.off);
-                        presenter.onAlarmToggled(
-                                false,
-                                alarms.get(this.getAdapterPosition())
-                        );
-                    }
-                }else if (id == R.id.im_clock){
-                    presenter.onAlarmIconClick(
+            @OnClick(R.id.swi_alarm_activation)
+            public void swipeAlarmActivation(){
+                if(alarmStateSwitch.isChecked()){
+                    alarmStateLabel.setText(R.string.on);
+                    Log.d("adapter", "se prendió ON");
+                    presenter.onAlarmToggled(
+                            true,
+                            alarms.get(this.getAdapterPosition())
+                    );
+                }else {
+                    alarmStateLabel.setText(R.string.off);
+                    Log.d("adapter", "se apagó OFF");
+                    presenter.onAlarmToggled(
+                            false,
                             alarms.get(this.getAdapterPosition())
                     );
                 }
             }
+
+            @OnClick(R.id.im_clock)
+            public void alarmIconClick(){
+                presenter.onAlarmIconClick(
+                        alarms.get(this.getAdapterPosition())
+                );
+            }
+
+
         }
     }
 
